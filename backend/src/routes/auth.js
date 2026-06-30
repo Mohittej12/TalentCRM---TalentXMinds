@@ -57,8 +57,16 @@ router.post('/verify-email', async (req, res) => {
 
         if (!user) return res.status(404).json({ success: false, message: 'User not found' });
         if (user.isVerified) return res.status(400).json({ success: false, message: 'Account already verified' });
-        if (!user.verifyOTP || String(user.verifyOTP).trim() !== String(otp).trim())
+
+        if (!user.verifyOTP || String(user.verifyOTP).trim() !== String(otp).trim()) {
+            console.log('\n❌ [DEBUG] OTP Mismatch!');
+            console.log(`- User: ${user.email}`);
+            console.log(`- Expected OTP (in DB): "${user.verifyOTP}" (Type: ${typeof user.verifyOTP})`);
+            console.log(`- Received OTP (from UI): "${otp}" (Type: ${typeof otp})`);
+
             return res.status(400).json({ success: false, message: 'Invalid OTP code' });
+        }
+
         if (user.verifyOTPExpiry < new Date())
             return res.status(400).json({ success: false, message: 'OTP has expired. Please request a new one.' });
 
@@ -144,8 +152,7 @@ router.post('/forgot-password', async (req, res) => {
         const email = req.body.email?.toLowerCase().trim();
         const user = await User.findOne({ email });
 
-        // Always respond OK to prevent email enumeration
-        if (!user) return res.json({ success: true, message: 'If that email exists, a reset code was sent.' });
+        if (!user) return res.status(404).json({ success: false, message: 'User not found. Please register.' });
 
         const otp = generateOTP();
         user.resetOTP = otp;
@@ -170,8 +177,16 @@ router.post('/verify-reset-otp', async (req, res) => {
         const user = await User.findOne({ email });
 
         if (!user) return res.status(404).json({ success: false, message: 'User not found' });
-        if (!user.resetOTP || String(user.resetOTP).trim() !== String(otp).trim())
+
+        if (!user.resetOTP || String(user.resetOTP).trim() !== String(otp).trim()) {
+            console.log('\n❌ [DEBUG] Reset OTP Mismatch!');
+            console.log(`- User: ${user.email}`);
+            console.log(`- Expected OTP (in DB): "${user.resetOTP}" (Type: ${typeof user.resetOTP})`);
+            console.log(`- Received OTP (from UI): "${otp}" (Type: ${typeof otp})`);
+
             return res.status(400).json({ success: false, message: 'Invalid OTP code' });
+        }
+
         if (user.resetOTPExpiry < new Date())
             return res.status(400).json({ success: false, message: 'OTP has expired. Please request a new one.' });
 

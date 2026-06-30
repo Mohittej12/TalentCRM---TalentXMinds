@@ -8,16 +8,17 @@
 
 ## ✨ Features
 
-- 🔐 **JWT Authentication** — Secure login & registration
-- 👥 **Candidate Management** — Full CRUD with search & filter
-- 📋 **Table View** — Sortable candidate list with pagination
-- 📌 **Kanban Board** — Drag-and-drop pipeline stages
-- 📊 **Pipeline Overview** — Real-time stage breakdown bar
-- 🎯 **Priority Levels** — Low / Normal / High / Urgent
-- 🔗 **Source Tracking** — LinkedIn, Naukri, Referral, etc.
-- 📍 **Location & Contact** — Phone, location per candidate
-- ✍️ **Notes** — Freeform remarks per candidate
-- 🎨 **Dark-themed UI** — Glassmorphism + animations
+- 🔐 **JWT Authentication** — Secure login, registration, and email-based password reset.
+- 👥 **Candidate Management** — Full CRUD with search, stage filtering, and inline profile editing.
+- 📋 **Table View** — Sortable candidate list with empty states, loading indicators, and smart pagination.
+- 📌 **Kanban Board** — Visual drag-and-drop pipeline visualization across recruitment stages.
+- 📊 **Pipeline Overview** — Real-time stage breakdown bar with hired vs applied analytics.
+- 🎯 **Priority Levels** — Visual indicators for Low / Normal / High / Urgent candidates.
+- 🔗 **Source Tracking** — Multi-platform tracking (LinkedIn, Naukri, Referral, Company Website, GitHub, Internshala, Other).
+- 📍 **Location & Contact Details** — Rich candidate profiles including phone, location, and years of experience.
+- ✨ **Duplicate Prevention** — Smart backend validation to eliminate duplicate entries for candidates with the same email.
+- ✍️ **Notes & Remarks** — Freeform remarks per candidate for interview insights.
+- 🎨 **Dark-themed UI** — Modern glassmorphism design with fluid micro-interactions and animations.
 
 ---
 

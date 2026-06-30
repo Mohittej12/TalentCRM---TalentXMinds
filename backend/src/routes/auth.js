@@ -57,7 +57,7 @@ router.post('/verify-email', async (req, res) => {
 
         if (!user) return res.status(404).json({ success: false, message: 'User not found' });
         if (user.isVerified) return res.status(400).json({ success: false, message: 'Account already verified' });
-        if (!user.verifyOTP || user.verifyOTP !== otp)
+        if (!user.verifyOTP || String(user.verifyOTP).trim() !== String(otp).trim())
             return res.status(400).json({ success: false, message: 'Invalid OTP code' });
         if (user.verifyOTPExpiry < new Date())
             return res.status(400).json({ success: false, message: 'OTP has expired. Please request a new one.' });
@@ -170,7 +170,7 @@ router.post('/verify-reset-otp', async (req, res) => {
         const user = await User.findOne({ email });
 
         if (!user) return res.status(404).json({ success: false, message: 'User not found' });
-        if (!user.resetOTP || user.resetOTP !== otp)
+        if (!user.resetOTP || String(user.resetOTP).trim() !== String(otp).trim())
             return res.status(400).json({ success: false, message: 'Invalid OTP code' });
         if (user.resetOTPExpiry < new Date())
             return res.status(400).json({ success: false, message: 'OTP has expired. Please request a new one.' });

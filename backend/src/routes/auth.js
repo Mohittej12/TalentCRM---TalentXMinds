@@ -20,7 +20,8 @@ const otpExpiry = () => new Date(Date.now() + 15 * 60 * 1000);
 // ─────────────────────────────────────
 router.post('/register', async (req, res) => {
     try {
-        const { name, email, password } = req.body;
+        const { name, password } = req.body;
+        const email = req.body.email?.toLowerCase().trim();
         if (!name || !email || !password)
             return res.status(400).json({ success: false, message: 'Please provide name, email, and password' });
 
@@ -50,7 +51,8 @@ router.post('/register', async (req, res) => {
 // ─────────────────────────────────────
 router.post('/verify-email', async (req, res) => {
     try {
-        const { email, otp } = req.body;
+        const { otp } = req.body;
+        const email = req.body.email?.toLowerCase().trim();
         const user = await User.findOne({ email });
 
         if (!user) return res.status(404).json({ success: false, message: 'User not found' });
@@ -84,7 +86,7 @@ router.post('/verify-email', async (req, res) => {
 // ─────────────────────────────────────
 router.post('/resend-verification', async (req, res) => {
     try {
-        const { email } = req.body;
+        const email = req.body.email?.toLowerCase().trim();
         const user = await User.findOne({ email });
 
         if (!user) return res.status(404).json({ success: false, message: 'User not found' });
@@ -108,7 +110,8 @@ router.post('/resend-verification', async (req, res) => {
 // ─────────────────────────────────────
 router.post('/login', async (req, res) => {
     try {
-        const { email, password } = req.body;
+        const { password } = req.body;
+        const email = req.body.email?.toLowerCase().trim();
         if (!email || !password)
             return res.status(400).json({ success: false, message: 'Please provide email and password' });
 
@@ -138,7 +141,7 @@ router.post('/login', async (req, res) => {
 // ─────────────────────────────────────
 router.post('/forgot-password', async (req, res) => {
     try {
-        const { email } = req.body;
+        const email = req.body.email?.toLowerCase().trim();
         const user = await User.findOne({ email });
 
         // Always respond OK to prevent email enumeration
@@ -162,7 +165,8 @@ router.post('/forgot-password', async (req, res) => {
 // ─────────────────────────────────────
 router.post('/verify-reset-otp', async (req, res) => {
     try {
-        const { email, otp } = req.body;
+        const { otp } = req.body;
+        const email = req.body.email?.toLowerCase().trim();
         const user = await User.findOne({ email });
 
         if (!user) return res.status(404).json({ success: false, message: 'User not found' });

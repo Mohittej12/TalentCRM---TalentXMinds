@@ -1,7 +1,6 @@
 const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv');
-const path = require('path');
 const connectDB = require('./config/db');
 
 // Load environment variables
@@ -19,8 +18,7 @@ app.use(cors({
 }));
 app.use(express.json());
 
-// Serve uploaded resumes as static files
-app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
+
 
 // Mount routers
 app.use('/api/auth', require('./routes/auth'));

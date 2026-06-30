@@ -1,0 +1,17 @@
+[
+  {
+    "label": "Decoded 'Mohittej@123' (encoded as Mohittej%40123)",
+    "success": false,
+    "error": "bad auth : Authentication failed."
+  },
+  {
+    "label": "Literal 'Mohittej%40123' (double encoded as Mohittej%2540123)",
+    "success": false,
+    "error": "bad auth : Authentication failed."
+  },
+  {
+    "label": "Plain 'Mohittej123' (encoded as Mohittej123)",
+    "success": false,
+    "error": "bad auth : Authentication failed."
+  }
+]

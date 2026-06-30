@@ -1,0 +1,30 @@
+{
+  "srv_addresses": [
+    {
+      "name": "ac-ww24uny-shard-00-01.wgzkhsq.mongodb.net",
+      "port": 27017,
+      "priority": 0,
+      "weight": 0,
+      "type": "SRV"
+    },
+    {
+      "name": "ac-ww24uny-shard-00-00.wgzkhsq.mongodb.net",
+      "port": 27017,
+      "priority": 0,
+      "weight": 0,
+      "type": "SRV"
+    },
+    {
+      "name": "ac-ww24uny-shard-00-02.wgzkhsq.mongodb.net",
+      "port": 27017,
+      "priority": 0,
+      "weight": 0,
+      "type": "SRV"
+    }
+  ],
+  "txt_records": [
+    [
+      "authSource=admin&replicaSet=atlas-uiyjh5-shard-0"
+    ]
+  ]
+}

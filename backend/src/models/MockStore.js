@@ -2,38 +2,7 @@ const bcrypt = require('bcryptjs');
 
 // In-memory arrays to persist data during the server session
 const mockUsers = [];
-const mockCandidates = [
-    {
-        _id: 'mock_cand_01',
-        name: 'Emily Watson',
-        email: 'emily@techcorp.com',
-        role: 'Senior Project Manager',
-        status: 'Interview',
-        experience: 7,
-        createdAt: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000),
-        updatedAt: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000),
-    },
-    {
-        _id: 'mock_cand_02',
-        name: 'Marcus Aurelius',
-        email: 'marcus@stoic.com',
-        role: 'Lead Devops Engineer',
-        status: 'Offered',
-        experience: 12,
-        createdAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000),
-        updatedAt: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000),
-    },
-    {
-        _id: 'mock_cand_03',
-        name: 'Sophia Loren',
-        email: 'sophia@cinema.it',
-        role: 'UX Designer',
-        status: 'Applied',
-        experience: 3,
-        createdAt: new Date(Date.now() - 6 * 3600 * 1000),
-        updatedAt: new Date(Date.now() - 6 * 3600 * 1000),
-    }
-];
+const mockCandidates = [];
 
 const MockUser = {
     findOne: async ({ email }) => {

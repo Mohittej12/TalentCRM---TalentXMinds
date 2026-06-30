@@ -145,6 +145,7 @@ const Dashboard = () => {
     const [showAddModal, setShowAddModal] = useState(false);
     const [showEditModal, setShowEditModal] = useState(false);
     const [showViewModal, setShowViewModal] = useState(false);
+    const [showContactModal, setShowContactModal] = useState(false);
     const [viewCandidate, setViewCandidate] = useState(null);
 
     const emptyForm = {
@@ -290,10 +291,13 @@ const Dashboard = () => {
                     </div>
                 </div>
                 <div className="user-profile">
-                    <div className="user-badge">
+                    <div className="user-badge" style={{ marginRight: '16px' }}>
                         <div className="user-avatar-mini">{userName ? userName[0].toUpperCase() : 'U'}</div>
                         <span className="user-name">Hello, <strong>{userName || 'User'}</strong></span>
                     </div>
+                    <button className="secondary" onClick={() => setShowContactModal(true)} style={{ padding: '8px 16px', fontSize: '0.85rem', marginRight: '8px' }}>
+                        ✉️ Contact
+                    </button>
                     <button className="secondary" onClick={handleLogout} style={{ padding: '8px 16px', fontSize: '0.85rem' }}>
                         🚪 Sign Out
                     </button>
@@ -529,6 +533,27 @@ const Dashboard = () => {
                             <button className="secondary" onClick={() => setShowViewModal(false)}>Close</button>
                             <button className="primary" onClick={() => { setShowViewModal(false); openEditModal(viewCandidate); }}>Edit Profile</button>
                         </div>
+                    </div>
+                </div>
+            )}
+
+            {/* Contact Developer Modal */}
+            {showContactModal && (
+                <div className="modal-overlay" onClick={(e) => e.target === e.currentTarget && setShowContactModal(false)}>
+                    <div className="modal-content" style={{ maxWidth: '400px', textAlign: 'center', padding: '32px' }}>
+                        <div className="candidate-avatar" style={{ '--hue': 220, margin: '0 auto 16px auto', width: '64px', height: '64px', fontSize: '1.5rem' }}>
+                            MT
+                        </div>
+                        <h3 style={{ marginBottom: '8px' }}>G. Mohit Tej</h3>
+                        <p style={{ color: '#9ca3af', marginBottom: '24px', fontSize: '0.95rem', lineHeight: '1.5' }}>
+                            For further development, inquiries, or support related to this project, please get in touch.
+                        </p>
+                        <a href="mailto:mohittejgowraa@gmail.com" className="primary" style={{ display: 'inline-block', textDecoration: 'none', padding: '10px 24px', borderRadius: '6px' }}>
+                            ✉️ mohittejgowraa@gmail.com
+                        </a>
+                        <button className="secondary" onClick={() => setShowContactModal(false)} style={{ display: 'block', margin: '16px auto 0 auto', border: 'none', background: 'transparent' }}>
+                            Close
+                        </button>
                     </div>
                 </div>
             )}

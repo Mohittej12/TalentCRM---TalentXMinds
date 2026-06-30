@@ -47,6 +47,10 @@ const MockUser = {
                 return await bcrypt.compare(enteredPassword, user.password);
             },
             save: async function () {
+                if (this.password && this.password !== user.password) {
+                    const salt = await bcrypt.genSalt(10);
+                    this.password = await bcrypt.hash(this.password, salt);
+                }
                 mockUsers[index] = { ...user, ...this };
                 return mockUsers[index];
             }
@@ -78,6 +82,10 @@ const MockUser = {
         return {
             ...user,
             save: async function () {
+                if (this.password && this.password !== user.password) {
+                    const salt = await bcrypt.genSalt(10);
+                    this.password = await bcrypt.hash(this.password, salt);
+                }
                 mockUsers[index] = { ...user, ...this };
                 return mockUsers[index];
             }

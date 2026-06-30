@@ -24,6 +24,14 @@ const userSchema = new mongoose.Schema(
             required: [true, 'Please add a password'],
             minlength: 6,
         },
+        isVerified: {
+            type: Boolean,
+            default: false,
+        },
+        verifyOTP: { type: String },
+        verifyOTPExpiry: { type: Date },
+        resetOTP: { type: String },
+        resetOTPExpiry: { type: Date },
     },
     {
         timestamps: true,
@@ -48,23 +56,21 @@ const UserModel = mongoose.model('User', userSchema);
 
 const UserDelegate = {
     findOne: async (query) => {
-        if (global.isMockDB) {
-            return await MockUser.findOne(query);
-        }
+        if (global.isMockDB) return await MockUser.findOne(query);
         return await UserModel.findOne(query);
     },
     create: async (data) => {
-        if (global.isMockDB) {
-            return await MockUser.create(data);
-        }
+        if (global.isMockDB) return await MockUser.create(data);
         return await UserModel.create(data);
     },
     findById: async (id) => {
-        if (global.isMockDB) {
-            return await MockUser.findById(id);
-        }
+        if (global.isMockDB) return await MockUser.findById(id);
         return await UserModel.findById(id);
-    }
+    },
+    findByIdAndUpdate: async (id, update, options = {}) => {
+        if (global.isMockDB) return null;
+        return await UserModel.findByIdAndUpdate(id, update, options);
+    },
 };
 
 module.exports = UserDelegate;

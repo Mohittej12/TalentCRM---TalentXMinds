@@ -138,6 +138,22 @@ npm run dev   # Starts on http://localhost:5173
 
 ---
 
+## 🚢 Creating a GitHub Release
+
+To package your project as a release on GitHub:
+
+1. Go to your repository on GitHub.
+2. On the right side of the main page, find the **Releases** section and click **Create a new release** (or **Draft a new release**).
+3. **Choose a tag**: Click the dropdown and type a version number, e.g., `v1.0.0`, and click "Create new tag: v1.0.0 on publish".
+4. **Target**: Leave it as `main`.
+5. **Release title**: Something like `TalentCRM v1.0.0 - Initial Release`.
+6. **Description**: Click "Generate release notes" or manually type the features (like "Added Kanban board, removed mock candidates, added JWT auth").
+7. Click the green **Publish release** button at the bottom.
+
+GitHub will automatically create `.zip` and `.tar.gz` source code files for this release that anyone can download!
+
+---
+
 ## 📄 License
 
 MIT © [Mohittej12](https://github.com/Mohittej12)

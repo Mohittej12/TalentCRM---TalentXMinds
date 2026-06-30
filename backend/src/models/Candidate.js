@@ -61,6 +61,12 @@ const candidateSchema = new mongoose.Schema(
 const CandidateModel = mongoose.model('Candidate', candidateSchema);
 
 const CandidateDelegate = {
+    findOne: async (query) => {
+        if (global.isMockDB) {
+            return await MockCandidate.findOne(query);
+        }
+        return await CandidateModel.findOne(query);
+    },
     find: (query) => {
         if (global.isMockDB) {
             return MockCandidate.find(query);

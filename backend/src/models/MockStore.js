@@ -94,6 +94,15 @@ const MockUser = {
 };
 
 const MockCandidate = {
+    findOne: async (query) => {
+        if (!query) return null;
+        const key = Object.keys(query)[0];
+        const val = query[key];
+        const index = mockCandidates.findIndex(c => c[key] === val);
+        if (index === -1) return null;
+        return mockCandidates[index];
+    },
+
     find: (query = {}) => {
         let filtered = [...mockCandidates];
 
@@ -119,7 +128,8 @@ const MockCandidate = {
         };
     },
 
-    create: async ({ name, email, role, status, experience }) => {
+    create: async (data) => {
+        const { name, email, role, status, experience, phone, location, source, priority, notes } = data;
         const newCand = {
             _id: 'mock_cand_' + Math.random().toString(36).substr(2, 9),
             name,
@@ -127,6 +137,11 @@ const MockCandidate = {
             role,
             status: status || 'Applied',
             experience: Number(experience),
+            phone,
+            location,
+            source: source || 'LinkedIn',
+            priority: priority || 'Normal',
+            notes,
             createdAt: new Date(),
             updatedAt: new Date(),
         };
@@ -145,11 +160,16 @@ const MockCandidate = {
             save: async function () {
                 mockCandidates[index] = {
                     ...cand,
-                    name: this.name,
-                    email: this.email,
-                    role: this.role,
-                    status: this.status,
-                    experience: Number(this.experience),
+                    name: this.name !== undefined ? this.name : cand.name,
+                    email: this.email !== undefined ? this.email : cand.email,
+                    role: this.role !== undefined ? this.role : cand.role,
+                    status: this.status !== undefined ? this.status : cand.status,
+                    experience: this.experience !== undefined ? Number(this.experience) : cand.experience,
+                    phone: this.phone !== undefined ? this.phone : cand.phone,
+                    location: this.location !== undefined ? this.location : cand.location,
+                    source: this.source !== undefined ? this.source : cand.source,
+                    priority: this.priority !== undefined ? this.priority : cand.priority,
+                    notes: this.notes !== undefined ? this.notes : cand.notes,
                     updatedAt: new Date(),
                 };
                 return mockCandidates[index];

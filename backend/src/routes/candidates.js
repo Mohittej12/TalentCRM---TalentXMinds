@@ -40,8 +40,13 @@ router.post('/', async (req, res) => {
             return res.status(400).json({ success: false, message: 'Please provide name, email, role, and experience' });
         }
 
+        const existingCandidate = await Candidate.findOne({ email: email.toLowerCase() });
+        if (existingCandidate) {
+            return res.status(400).json({ success: false, message: 'Candidate with this email already exists' });
+        }
+
         const candidate = await Candidate.create({
-            name, email, role,
+            name, email: email.toLowerCase(), role,
             status: status || 'Applied',
             experience,
             phone, location, source, priority, notes,
@@ -66,8 +71,15 @@ router.put('/:id', async (req, res) => {
             return res.status(404).json({ success: false, message: 'Candidate not found' });
         }
 
+        if (email && email.toLowerCase() !== candidate.email) {
+            const existingCandidate = await Candidate.findOne({ email: email.toLowerCase() });
+            if (existingCandidate) {
+                return res.status(400).json({ success: false, message: 'Candidate with this email already exists' });
+            }
+            candidate.email = email.toLowerCase();
+        }
+
         if (name) candidate.name = name;
-        if (email) candidate.email = email;
         if (role) candidate.role = role;
         if (status) candidate.status = status;
         if (experience !== undefined) candidate.experience = experience;

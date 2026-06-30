@@ -37,19 +37,23 @@ const mockCandidates = [
 
 const MockUser = {
     findOne: async ({ email }) => {
-        const user = mockUsers.find(u => u.email.toLowerCase() === email.toLowerCase());
-        if (!user) return null;
+        const index = mockUsers.findIndex(u => u.email.toLowerCase() === email.toLowerCase());
+        if (index === -1) return null;
+        const user = mockUsers[index];
 
-        // Add instance method emulator
         return {
             ...user,
             matchPassword: async (enteredPassword) => {
                 return await bcrypt.compare(enteredPassword, user.password);
+            },
+            save: async function () {
+                mockUsers[index] = { ...user, ...this };
+                return mockUsers[index];
             }
         };
     },
 
-    create: async ({ name, email, password }) => {
+    create: async ({ name, email, password, ...rest }) => {
         const salt = await bcrypt.genSalt(10);
         const hashedPassword = await bcrypt.hash(password, salt);
 
@@ -58,6 +62,7 @@ const MockUser = {
             name,
             email: email.toLowerCase(),
             password: hashedPassword,
+            ...rest,
             createdAt: new Date(),
             updatedAt: new Date(),
         };
@@ -67,12 +72,15 @@ const MockUser = {
     },
 
     findById: async (id) => {
-        const user = mockUsers.find(u => u._id === id);
-        if (!user) return null;
+        const index = mockUsers.findIndex(u => u._id === id);
+        if (index === -1) return null;
+        const user = mockUsers[index];
         return {
-            _id: user._id,
-            name: user.name,
-            email: user.email,
+            ...user,
+            save: async function () {
+                mockUsers[index] = { ...user, ...this };
+                return mockUsers[index];
+            }
         };
     }
 };

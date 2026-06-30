@@ -24,6 +24,11 @@ app.use(express.json());
 app.use('/api/auth', require('./routes/auth'));
 app.use('/api/candidates', require('./routes/candidates'));
 
+// Root route — confirms API is alive
+app.get('/', (req, res) => {
+    res.json({ message: '🚀 TalentCRM API is running!', status: 'ok' });
+});
+
 // Basic health check route
 app.get('/api/health', (req, res) => {
     res.json({ status: 'healthy', time: new Date() });
